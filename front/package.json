@@ -1,0 +1,24 @@
+{
+  "name": "vue_trello",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --mode development --progress --hot",
+    "build": "webpack --mode production --progress"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^7.1.5",
+    "html-webpack-plugin": "^3.2.0",
+    "vue-loader": "^15.4.2",
+    "webpack-dev-server": "^3.1.14"
+  }
+}
