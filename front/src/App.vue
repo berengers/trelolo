@@ -1,53 +1,30 @@
 <template>
   <div id="page">
-    <div class="column">
-      <h2>Product Backlog</h2>
-      <div>
-        <div v-bind:key="item.id" v-for="item in items" class="item">
-          {{ item.id + " - " + item.name }}
-        </div>
-      </div>
-    </div>
-
-    <div class="column">
-      <h2>Product Backlog</h2>
-      <div>
-        <div v-bind:key="item.id" v-for="item in filtered" class="item">
-          {{ item.id + " - " + item.name }}
-        </div>
-      </div>
-    </div>
+    <Column v-for="column in columns" :key="column.id" :column="column"/>
   </div>
 </template>
 
 <script>
+import Column from './column.vue'
+
 export default {
-  name: 'app',
+  name: 'App',
   data() {
     return {
-      items: [
+      columns: [
         {
           id: 1,
-          name: 'ticket 1',
-          columnId: 1
+          name: 'product backlog'
         },
         {
           id: 2,
-          name: 'ticket 2',
-          columnId: 1
-        },
-        {
-          id: 3,
-          name: 'ticket 3',
-          columnId: 2
-        },
+          name: 'sprint backlog'
+        }
       ]
     }
   },
-  computed: {
-    filtered: function() {
-      return this.items.filter((item) => item.columnId === 1)
-    }
+  components: {
+    Column
   }
 }
 </script>
@@ -64,23 +41,5 @@ body {
 #page {
   display: flex;
   padding: 20px;
-}
-
-.column {
-  padding: 15px;
-  margin-right: 10px;
-  background: red;
-}
-
-.item {
-  padding: 5px;
-  margin-bottom: 4px;
-  color: white;
-  font-weight: bolder;
-  background: blue;
-  cursor: pointer;
-}
-.item:hover {
-  background-color: darkblue;
 }
 </style>
