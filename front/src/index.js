@@ -1,3 +1,8 @@
-const b = "berenger"
+import Vue from 'vue'
 
-console.log('b ---->', b)
+import App from './App.vue'
+
+new Vue({
+    el: '#app',
+    render: h => h(App)
+})
