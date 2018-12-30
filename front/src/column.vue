@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <h2>{{ column.name }}</h2>
+    <div class="title">{{ column.name }}</div>
     <div>
       <div v-for="item in items" v-if="column.id === item.columnId" :key="item.id"  class="item">
         {{ item.id + " - " + item.name }}
@@ -46,20 +46,33 @@ export default {
 
 <style scoped>
 .column {
-  padding: 15px;
-  margin-right: 10px;
-  background: red;
+  width: 272px;
+  margin: 0 4px;
+  padding: 5px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  background-color: #dfe3e6;
+  border-radius: 3px;
+}
+
+.title{
+  margin: 5px;
+  padding: 5px;
+  font-weight: bolder;
+  color: #17394d;
+  text-transform: capitalize;
 }
 
 .item {
-  padding: 5px;
-  margin-bottom: 4px;
-  color: white;
-  font-weight: bolder;
-  background: blue;
+  padding: 8px;
+  margin: 0 4px 8px;
+  color: #17394d;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(9,45,66,.25);
   cursor: pointer;
 }
 .item:hover {
-  background-color: darkblue;
+  background-color: #f9f7f7;
 }
 </style>

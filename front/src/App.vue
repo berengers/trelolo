@@ -19,6 +19,14 @@ export default {
         {
           id: 2,
           name: 'sprint backlog'
+        },
+        {
+          id: 3,
+          name: 'Current'
+        },
+        {
+          id: 4,
+          name: 'Waiting Validation'
         }
       ]
     }
@@ -33,6 +41,8 @@ export default {
 body {
   padding: 0;
   margin: 0;
+  font-size: 13px;
+  font-family: Helvetica Neue,Arial,Helvetica,sans-serif;
 }
 </style>
 
@@ -41,5 +51,9 @@ body {
 #page {
   display: flex;
   padding: 20px;
+  height: 100vh;
+  box-sizing: border-box;
+  align-items: flex-start;
+  background-color: rgb(210, 144, 52);
 }
 </style>
