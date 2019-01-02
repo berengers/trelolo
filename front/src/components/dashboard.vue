@@ -32,7 +32,6 @@ export default {
 <style scoped>
 #dashboard {
   display: flex;
-  padding: 20px;
   align-items: flex-start;
 }
 </style>

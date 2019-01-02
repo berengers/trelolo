@@ -1,12 +1,12 @@
 <template>
   <div class="column">
     <div class="title">{{ column.name }}</div>
-    <div>
+    <div class="items">
       <div v-for="item in items" v-if="column.id === item.columnId" :key="item.id"  class="item">
         {{ item.id + " - " + item.name }}
       </div>
     </div>
-    <button v-show='!formItemShow' @click='addItem'>+ Add another card</button>
+    <div v-show='!formItemShow' @click='addItem' class="addItem">+ Add another card</div>
     <div v-show='formItemShow'>
       <div class="formItem">
         <textarea placeholder="Enter a title for this card..." type='text' />
@@ -48,7 +48,7 @@ export default {
 .column {
   width: 272px;
   margin: 0 4px;
-  padding: 15px 12px 12px;
+  padding-top: 15px;
   flex-shrink: 0;
   box-sizing: border-box;
   white-space: nowrap;
@@ -57,12 +57,14 @@ export default {
 }
 
 .title{
-  margin: 0 0 8px 8px;
+  margin: 8px 10px 10px 20px;
   font-weight: bolder;
   color: #17394d;
   text-transform: capitalize;
 }
-
+.items {
+  padding: 0 10px;
+}
 .item {
   padding: 8px;
   margin-bottom: 7px;
@@ -74,6 +76,16 @@ export default {
 }
 .item:hover {
   background-color: #f9f7f7;
+}
+.addItem {
+  background-color: none;
+  padding: 7px 10px 10px;
+  color: #6b808c;
+  cursor: pointer;
+}
+.addItem:hover {
+  background-color: rgba(9,45,66,.13);
+  color: #17394d;
 }
 .formItem textarea {
   display: block;
@@ -88,12 +100,15 @@ export default {
   padding: 8px;
   margin-top: 10px;
   border-radius: 3px;
-  box-shadow: 0 1px 0 rgba(9,45,66,.25);
+  box-shadow: 0 1px 0 0 #3f6f21;
   font-weight: bolder;
   cursor: pointer;
 }
 .btn-green {
   background-color: #5aac44;
   color: white;
+}
+.btn-green:hover {
+  background-color: #4b8d39
 }
 </style>
