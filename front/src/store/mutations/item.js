@@ -1,8 +1,10 @@
-export const addItem = (state, payload) => {
+import uuid from 'uuid/v4'
+
+export const ADD_ITEM = (state, payload) => {
   console.log('payload ---->', payload)
   state.items = [...state.items, {
-    id: 10,
+    id: uuid(),
     name: payload.name,
-    columnId: 2
+    columnId: payload.columnId
   }]
 }

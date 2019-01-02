@@ -3,15 +3,16 @@
     <div class="title">{{ column.name }}</div>
     <div class="items">
       <div v-for="item in items" v-if="column.id === item.columnId" :key="item.id"  class="item">
-        {{ item.id + " - " + item.name }}
+        {{ item.name }}
       </div>
     </div>
-    <div v-show='!formItemShow' @click='addItem' class="addItem">+ Add another card</div>
-    <div v-show='formItemShow'>
-      <div class="formItem">
-        <textarea placeholder="Enter a title for this card..." type='text' />
+    <div v-if='!formItemShow' @click='formItem' class="addItem">+ Add another card</div>
+    <div v-on:submit.prevent="noop" v-else class="formItem">
+      <div class="areaBlock">
+        <textarea v-on:keyup.enter.stop="addItem(column.id)" v-model="inputText" placeholder="Enter a title for this card..." type='text' />
       </div>
-      <div class="btn btn-green">Add Card</div>
+      <div @click='addItem(column.id)' class="btn btn-green">Add Card</div>
+      <span @click='formItem'>cancel</span>
     </div>
   </div>
 </template>
@@ -19,11 +20,14 @@
 <script>
 import { mapMutations } from 'vuex'
 
+import { ADD_ITEM } from '../store/mutations/const'
+
 export default {
   name: 'Column',
   data: function() {
     return {
-      formItemShow: false
+      formItemShow: false,
+      inputText: ""
     }
   },
   props: {
@@ -35,10 +39,18 @@ export default {
     }
   },
   methods: {
-    addItem() {
-      console.log('this.formItemShow ---->', this.formItemShow)
-      this.formItemShow = true
-      this.$store.commit({type: 'addItem', payload: { name: "rolalala" }})
+    ...mapMutations([
+      'ADD_ITEM'
+    ]),
+    formItem() {
+      this.formItemShow = !this.formItemShow
+    },
+    addItem(columnId) {
+      if (this.inputText.trim()) {
+        // this.$store.commit( ADD_ITEM, {name: this.inputText.trim(), columnId: columnId })
+        this.ADD_ITEM({name: this.inputText.trim(), columnId: columnId })
+      }
+      this.inputText = ""
     }
   }
 }
@@ -51,15 +63,14 @@ export default {
   padding-top: 15px;
   flex-shrink: 0;
   box-sizing: border-box;
-  white-space: nowrap;
   background-color: #dfe3e6;
   border-radius: 3px;
+  color: #17394d;
 }
 
 .title{
   margin: 8px 10px 10px 20px;
   font-weight: bolder;
-  color: #17394d;
   text-transform: capitalize;
 }
 .items {
@@ -68,7 +79,6 @@ export default {
 .item {
   padding: 8px;
   margin-bottom: 7px;
-  color: #17394d;
   background: white;
   border-radius: 3px;
   box-shadow: 0 1px 0 rgba(9,45,66,.25);
@@ -87,13 +97,27 @@ export default {
   background-color: rgba(9,45,66,.13);
   color: #17394d;
 }
-.formItem textarea {
-  display: block;
-  max-width: 100%;
-  width: 100%;
+.formItem {
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+.areaBlock {
+  padding: 7px 0 0 7px;
+  background-color: white;
   border-radius: 3px;
   border: 1px solid #ccc;
   box-shadow: 0 1px 0 rgba(9,45,66,.25);
+}
+.areaBlock textarea {
+  max-width: 97%;
+  width: 97%;
+  border: none;
+  color: #17394d;
+}
+.areaBlock textarea:focus {
+  outline: none !important;
+  border: none;
+  box-shadow: 0;
 }
 .btn {
   display: inline-block;

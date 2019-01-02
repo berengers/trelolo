@@ -1,2 +1,2 @@
 export { addColumn } from './column'
-export { addItem } from './item'
+export { ADD_ITEM } from './item'
