@@ -43,7 +43,8 @@ export default {
       'ADD_ITEM'
     ]),
     formItem() {
-      this.formItemShow = !this.formItemShow
+      this.$store.dispatch('actionA')
+      // this.formItemShow = !this.formItemShow
     },
     addItem(columnId) {
       if (this.inputText.trim()) {

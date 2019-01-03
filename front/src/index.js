@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import "@babel/polyfill"
 
 import App from './components/app.vue'
 import store from './store'
