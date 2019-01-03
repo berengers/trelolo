@@ -31,6 +31,7 @@ body, input, textarea{
   padding: 20px;
   height: 100vh;
   box-sizing: border-box;
+  overflow: auto;
   background-color: rgb(210, 144, 52);
 }
 </style>

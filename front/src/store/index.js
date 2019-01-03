@@ -41,7 +41,8 @@ const initialState = {
       name: 'ticket 3',
       columnId: 2
     },
-  ]
+  ],
+  loading: false
 }
 
 const store = new Vuex.Store({

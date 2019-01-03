@@ -6,8 +6,9 @@
         {{ item.name }}
       </div>
     </div>
-    <div v-if='!formItemShow' @click='formItem' class="addItem">+ Add another card</div>
-    <div v-on:submit.prevent="noop" v-else class="formItem">
+    <div v-if='loading' class="loading">loading...</div>
+    <div v-else-if='!formItemShow' @click='formItem' class="addItem">+ Add another card</div>
+    <div v-else v-on:submit.prevent="noop" class="formItem">
       <div class="areaBlock">
         <textarea v-on:keyup.enter.stop="addItem(column.id)" v-model="inputText" placeholder="Enter a title for this card..." type='text' />
       </div>
@@ -36,6 +37,9 @@ export default {
   computed: {
     items: function() {
       return this.$store.state.items
+    },
+    loading: function() {
+      return this.$store.state.loading
     }
   },
   methods: {
@@ -43,13 +47,11 @@ export default {
       'ADD_ITEM'
     ]),
     formItem() {
-      this.$store.dispatch('actionA')
-      // this.formItemShow = !this.formItemShow
+      this.formItemShow = !this.formItemShow
     },
     addItem(columnId) {
       if (this.inputText.trim()) {
-        // this.$store.commit( ADD_ITEM, {name: this.inputText.trim(), columnId: columnId })
-        this.ADD_ITEM({name: this.inputText.trim(), columnId: columnId })
+        this.$store.dispatch('newItem', {name: this.inputText.trim(), columnId: columnId })
       }
       this.inputText = ""
     }
@@ -68,8 +70,14 @@ export default {
   border-radius: 3px;
   color: #17394d;
 }
-
-.title{
+.loading {
+  margin-top: 15px;
+  padding: 7px;
+  background: #adb6bb;
+  text-align: center;
+  border-radius: 0 0 3px 3px;
+}
+.title {
   margin: 8px 10px 10px 20px;
   font-weight: bolder;
   text-transform: capitalize;

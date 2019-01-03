@@ -1,8 +1,16 @@
-export const actionA = async ({ commit }) => {
-  const bure = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(res => {
-      console.log('res ---->', res)
-      commit('addColumn')
-    })
+import axios from 'axios'
+
+import { ADD_ITEM } from '../mutations/const'
+import { LOADING } from '../mutations/const'
+
+export const newItem = async ({ commit }, payload) => {
+  commit(LOADING)
+  console.log('payload ---->', payload)
+  
+  const { data: todo } = await axios.post('https://jsonplaceholder.typicode.com/todos', { title: payload.name })
+  .catch(error => console.log('error ---->', error))
+  
+  console.log('todo ---->', todo)
+  commit(ADD_ITEM, {name: todo.title, columnId: payload.columnId })
+  commit(LOADING)
 }
