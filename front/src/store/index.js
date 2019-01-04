@@ -25,23 +25,7 @@ const initialState = {
       name: 'Waiting Validation'
     }
   ],
-  items: [
-    {
-      id: 1,
-      name: 'ticket 1',
-      columnId: 1
-    },
-    {
-      id: 2,
-      name: 'ticket 2',
-      columnId: 1
-    },
-    {
-      id: 3,
-      name: 'ticket 3',
-      columnId: 2
-    },
-  ],
+  items: [],
   loading: false
 }
 

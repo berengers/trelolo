@@ -1,3 +1,3 @@
 export const LOADING = (state, payload) => {
-  state.loading = !state.loading
+  state.loading = payload.load
 }

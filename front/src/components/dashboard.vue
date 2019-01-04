@@ -10,6 +10,9 @@ import Column from './column.vue'
 
 export default {
   name: 'Dashboard',
+  created() {
+    this.fetchItems()
+  },
   computed: {
     count() {
       return this.$store.state.count
@@ -19,6 +22,9 @@ export default {
     }
   },
   methods: {
+    fetchItems() {
+      this.$store.dispatch('fetchItems')
+    },
     add (state) {
       this.$store.commit('addColumn')
     }
