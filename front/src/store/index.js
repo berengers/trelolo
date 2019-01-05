@@ -7,24 +7,8 @@ import * as actions from './actions'
 Vue.use(Vuex)
 
 const initialState = {
-  columns: [
-    {
-      id: 1,
-      name: 'product backlog'
-    },
-    {
-      id: 2,
-      name: 'sprint backlog'
-    },
-    {
-      id: 3,
-      name: 'Current'
-    },
-    {
-      id: 4,
-      name: 'Waiting Validation'
-    }
-  ],
+  currentDashboard: {},
+  columns: [],
   items: [],
   loading: false
 }

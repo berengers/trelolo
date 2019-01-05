@@ -2,8 +2,8 @@
   <div class="column">
     <div class="title">{{ column.name }}</div>
     <div class="items">
-      <div v-for="item in items" v-if="column.id === item.columnId" :key="item.id"  class="item">
-        {{ item.name }}
+      <div v-for="item in items" :key="item.id"  class="item">
+        {{ item.text }}
       </div>
     </div>
     <div v-if='loading' class="loading">loading...</div>
@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     items: function() {
-      return this.$store.state.items
+      return this.$store.state.items.filter(item => item.columnId === this.column.id)
     },
     loading: function() {
       return this.$store.state.loading

@@ -11,7 +11,8 @@ import Column from './column.vue'
 export default {
   name: 'Dashboard',
   created() {
-    this.fetchItems()
+    // this.fetchDashboard(this.$route.params.id)
+    this.fetchDashboard()
   },
   computed: {
     count() {
@@ -22,8 +23,9 @@ export default {
     }
   },
   methods: {
-    fetchItems() {
-      this.$store.dispatch('fetchItems')
+    fetchDashboard() {
+      this.$store.dispatch('fetchDashboard', { id: this.$route.params.id })
+      // .catch(bliblou => { this.$router.replace('/dashboards') })
     },
     add (state) {
       this.$store.commit('addColumn')
