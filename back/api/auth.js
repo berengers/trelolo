@@ -14,7 +14,9 @@ function login(req, res) {
 }
 
 function authenticate(req, res, next) {
-  AuthToken.findOne({where: {token: req.headers['x-authenticate'] || ''}, include: [User]}).then(token => {
+  AuthToken.findOne({where: {token: req.headers['x-authenticate'] || ''}, include: [User]})
+  .then(token => {
+  
     if (token) {
       req.user = token.user
     }

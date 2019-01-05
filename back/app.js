@@ -18,5 +18,5 @@ app.listen(config.PORT, () => {
   logger.info(`http server listening on port ${config.PORT}`);
 })
 
-require('./api/auth')(app, '/api/auth')
-require('./api/ping')(app, '/api/ping')
+require('./api/auth')(app, '/api')
+require('./api/dashboard')(app, '/api/dashboards')
