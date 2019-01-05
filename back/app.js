@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const loggingMiddleware = require('express-pino-logger')()
 const logger = require('pino')()
 const { db } = require('./models/db')
+const cors = require('cors')
 
 db.sync({ force: false }).then(() => {
     logger.info('database tables created')
@@ -11,6 +12,7 @@ db.sync({ force: false }).then(() => {
 
 var app = express()
 
+app.use(cors())
 app.use(loggingMiddleware)
 app.use(bodyParser.json())
 
