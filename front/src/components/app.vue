@@ -28,10 +28,9 @@ body, input, textarea{
 
 <style scoped>
 #page {
-  padding: 20px;
   height: 100vh;
   box-sizing: border-box;
   overflow: auto;
-  background-color: rgb(210, 144, 52);
+  background-color: #f8f9f9;
 }
 </style>

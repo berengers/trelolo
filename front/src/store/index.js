@@ -7,6 +7,7 @@ import * as actions from './actions'
 Vue.use(Vuex)
 
 const initialState = {
+  dashboards: {},
   currentDashboard: {},
   columns: [],
   items: [],

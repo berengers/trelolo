@@ -15,9 +15,6 @@ export default {
     this.fetchDashboard()
   },
   computed: {
-    count() {
-      return this.$store.state.count
-    },
     columns() {
       return this.$store.state.columns
     }
@@ -25,7 +22,7 @@ export default {
   methods: {
     fetchDashboard() {
       this.$store.dispatch('fetchDashboard', { id: this.$route.params.id })
-      // .catch(bliblou => { this.$router.replace('/dashboards') })
+      .catch(bliblou => { this.$router.replace('/dashboards') })
     },
     add (state) {
       this.$store.commit('addColumn')
@@ -39,7 +36,13 @@ export default {
 
 <style scoped>
 #dashboard {
+  width: 100%;
   display: flex;
   align-items: flex-start;
+  overflow: auto;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background: blue;
 }
 </style>
