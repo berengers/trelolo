@@ -11,8 +11,13 @@ import Column from './column.vue'
 export default {
   name: 'Dashboard',
   created() {
-    // this.fetchDashboard(this.$route.params.id)
-    this.fetchDashboard()
+    const { currentDashboard } = this.$store.state
+    const { id } = this.$route.params
+
+    if (currentDashboard.id !== parseInt(id)) {
+      this.fetchDashboard()
+    }
+    
   },
   computed: {
     columns() {

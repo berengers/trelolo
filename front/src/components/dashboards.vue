@@ -1,6 +1,6 @@
 <template>
   <div id="page">
-    <h1>hoooo</h1>
+    <h1>My Dashboards</h1>
     <div class="dashboards">
       <router-link v-for="dashboard in dashboards" :key="dashboard.id" :to="{ path: '/dashboard/' + dashboard.id }" tag="div" class="dashboard">
         <div>
@@ -15,7 +15,12 @@
 export default {
   name: 'Dashboards',
   created() {
-    this.fetchDashboards()
+    const { dashboards } = this.$store.state
+
+    if(dashboards.length === 0){
+      this.fetchDashboards()
+    }
+    
   },
   computed: {
     dashboards() {
@@ -46,9 +51,13 @@ export default {
   border-radius: 3px;
   background: #0066a3;
   color: #dadada;
+  cursor: pointer;
 
   text-transform: capitalize;
   font-size: 16px;
   font-weight: 700;
+}
+.dashboard:hover{
+  opacity: .8;
 }
 </style>
