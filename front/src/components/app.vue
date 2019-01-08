@@ -1,16 +1,19 @@
 <template>
   <div id="page">
+    <Navbar />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Navbar from './navbar.vue'
 import Dashboard from './dashboard.vue'
 
 export default {
   name: 'App',
   components: {
-    Dashboard
+    Dashboard,
+    Navbar
   }
 }
 </script>
