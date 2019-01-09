@@ -23,22 +23,16 @@ function getDashboard(req, res) {
 }
 
 async function newDashboard(req, res) {
-  const { name, userId } = req.body
+  const { name } = req.body
 
-  const user = await User.findOne({ where: { "id": userId } })
-
-  if (parseInt(user.id) === req.user.id) {
-    Dashboard.create({ "name": name, "userId": userId })
-      .then(dash => {
-        res.json(dash)
-      })
-      .catch(error => {
-        res.statusCode = 404
-        res.json(error)
-      })
-  } else {
-    res.json({ "error": "No authorization" })
-  }
+  Dashboard.create({ "name": name, "userId": req.user.id })
+    .then(dash => {
+      res.json(dash)
+    })
+    .catch(error => {
+      res.statusCode = 404
+      res.json(error)
+    })
   
 }
 
