@@ -62,8 +62,8 @@ function updateDashboard(req, res) {
 
 module.exports = (app, prefix) => {
   app.get(prefix, logged(getDashboards))
-  app.get(prefix + '/:id', getDashboard)
-  app.post(prefix, newDashboard)
-  app.delete(prefix + '/:id', deleteDashboard)
-  app.put(prefix + '/:id', updateDashboard)
+  app.get(prefix + '/:id', logged(getDashboard))
+  app.post(prefix, logged(newDashboard))
+  app.delete(prefix + '/:id', logged(deleteDashboard))
+  app.put(prefix + '/:id', logged(updateDashboard))
 }
