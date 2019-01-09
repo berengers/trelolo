@@ -11,9 +11,9 @@ const Column = require('./column')(db, Sequelize)
 const Item = require('./item')(db, Sequelize)
 
 AuthToken.belongsTo(User)
-User.hasMany(Dashboard)
-Dashboard.hasMany(Column)
-Column.hasMany(Item)
+User.hasMany(Dashboard, { onDelete: 'CASCADE' })
+Dashboard.hasMany(Column, { onDelete: 'CASCADE' })
+Column.hasMany(Item, { onDelete: 'CASCADE' })
 
 module.exports = {
   db,
