@@ -12,19 +12,58 @@ function getDashboards(req, res) {
 
 function getDashboard(req, res) {
   Dashboard.findOne({ where: { id: req.params.id, userId: req.user.id }, include: [{model: Column, include: [Item]}] })
-  .then(dash => {
-    if(dash){
+    .then(dash => {
+      if(dash){
+        res.json(dash)
+      } else {
+        res.statusCode = 404
+        res.json({ "error": "Not found or no authorization" })
+      }
+    })
+}
+
+function newDashboard(req, res) {
+  const { name, userId } = req.body
+  
+  Dashboard.create({ "name": name, "userId": userId })
+    .then(dash => {
       res.json(dash)
-    } else {
-      console.log('dash ---->', dash)
+    })
+    .catch(error => {
       res.statusCode = 404
-      res.json({ "error": "Not found or no authorization" })
-    }
-  })
+      res.json(error)
+    })
+}
+
+function deleteDashboard(req, res) {
+  Dashboard.findOne({ where: { id: req.params.id, userId: req.user.id } })
+    .then(dash => {
+      if (dash) {
+        dash.destroy()
+        res.json('')
+      } else {
+        res.statusCode = 404
+        res.json({ "error": "No authorization or no dashboard at this id" })
+      }
+    })
+}
+
+function updateDashboard(req, res) {
+  const { name } = req.body
+
+  Dashboard.findOne({ where: { id: req.params.id, userId: req.user.id } })
+    .then(dash => {
+      dash.name = name
+      dash.save()
+      res.json(dash)
+    })
 }
 
 
 module.exports = (app, prefix) => {
   app.get(prefix, logged(getDashboards))
   app.get(prefix + '/:id', getDashboard)
+  app.post(prefix, newDashboard)
+  app.delete(prefix + '/:id', deleteDashboard)
+  app.put(prefix + '/:id', updateDashboard)
 }
