@@ -22,3 +22,5 @@ app.listen(config.PORT, () => {
 
 require('./api/auth')(app, '/api')
 require('./api/dashboard')(app, '/api/dashboards')
+require('./api/column')(app, '/api/columns')
+require('./api/item')(app, '/api/items')

@@ -11,8 +11,11 @@ const Column = require('./column')(db, Sequelize)
 const Item = require('./item')(db, Sequelize)
 
 AuthToken.belongsTo(User)
+Dashboard.belongsTo(User)
 User.hasMany(Dashboard, { onDelete: 'CASCADE' })
+Column.belongsTo(Dashboard)
 Dashboard.hasMany(Column, { onDelete: 'CASCADE' })
+Item.belongsTo(Column)
 Column.hasMany(Item, { onDelete: 'CASCADE' })
 
 module.exports = {
