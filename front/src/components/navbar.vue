@@ -24,7 +24,7 @@ export default {
 
 <style>
 #navbar + div{
-  padding-top: 60px !important;
+  padding-top: 55px !important;
 }
 </style>
 

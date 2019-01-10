@@ -10,15 +10,13 @@ Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes
 })
 
-
 const vm = new Vue({
-    el: '#app',
-    router,
-    store,
-    render: h => h(App)
+  el: '#app',
+  router,
+  store,
+  render: h => h(App)
 })
-

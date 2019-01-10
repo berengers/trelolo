@@ -1,6 +1,11 @@
 import axios from 'axios'
+import { router } from '../../index'
 
-import { RECEIVE_COLUMNS, RECEIVE_ITEMS, RECEIVE_DASHBOARDS, RECEIVE_DASHBOARD } from '../mutations/const'
+import {
+  RECEIVE_COLUMNS,
+  RECEIVE_ITEMS,
+  RECEIVE_DASHBOARDS, RECEIVE_DASHBOARD, ADD_DASHBOARD, DELETE_DASHBOARD
+} from '../mutations/const'
 import { LOADING } from '../mutations/const'
 
 export const fetchDashboards = async ({ commit }) => {
@@ -44,4 +49,32 @@ export const fetchDashboard = async ({ commit }, payload) => {
   commit(RECEIVE_COLUMNS, { columns })
   commit(RECEIVE_ITEMS, { items })
   commit(LOADING, { loading: false })
+}
+
+export const newDashboard = async ({ commit }, payload) => {
+  const { data: dashboard } = await axios.post(
+    'http://localhost:3000/api/dashboards',
+    { name: payload.name},
+    { headers: { 'x-authenticate': 'tom_token' } }
+  )
+    .catch(error => console.log('error ---->', error))
+
+  const lightDash = {}
+  lightDash.id = dashboard.id
+  lightDash.name = dashboard.name
+
+  commit(ADD_DASHBOARD, { dashboard: lightDash })
+}
+
+export const deleteDashboard = ({ commit }, payload) => {
+  const { id } = payload
+
+  axios.delete(`http://localhost:3000/api/dashboards/${id}`, {
+    headers: { 'x-authenticate': 'tom_token' }
+  })
+    .then(resp => {
+      commit(DELETE_DASHBOARD, { id })
+      router.replace('/dashboards')
+    })
+    .catch(error => { console.log('error ---->', error) })
 }
