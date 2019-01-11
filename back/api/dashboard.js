@@ -11,7 +11,11 @@ function getDashboards(req, res) {
 
 
 function getDashboard(req, res) {
-  Dashboard.findOne({ where: { id: req.params.id, userId: req.user.id }, include: [{model: Column, include: [Item]}] })
+  Dashboard.findOne({ 
+    where: { id: req.params.id, userId: req.user.id },
+    include: [{ model: Column, include: [Item] }],
+    order: [[Column, 'createdAt', 'ASC'],[Column, Item, 'createdAt', 'ASC']]
+  })
     .then(dash => {
       if(dash){
         res.json(dash)
