@@ -37,7 +37,7 @@ async function deleteItem(req, res) {
 }
 
 async function updateItem(req, res) {
-  const { text } = req.body
+  const { text, columnId } = req.body
 
   const item = await Item.findOne({
     where: { "id": req.params.id, "$column.dashboard.user.id$": req.user.id },
@@ -45,8 +45,29 @@ async function updateItem(req, res) {
   })
 
   if (item) {
-    item.text = text
-    res.json(item)
+    
+    if (text) {
+      item.text = text
+    }
+
+    if (columnId) {
+      const right = await Column.findOne({
+        where: { "id": columnId, "$dashboard.user.id$": req.user.id },
+        include: { all: true, nested: true }
+      })
+      
+      if (right) {
+        item.columnId = columnId
+      } else {
+        res.json({ "error": "No authorization" })
+        return
+      }
+    }
+
+    item.save().then(() => {
+      res.json(item)
+    })
+    
   } else {
     res.json({ "error": "No authorization" })
   }
