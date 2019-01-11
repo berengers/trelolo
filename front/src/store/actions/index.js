@@ -4,5 +4,16 @@ export {
   newDashboard,
   deleteDashboard
 } from './dashboard'
-export { newItem } from './item'
+
+export {
+  newColumn,
+  deleteColumn,
+  updateColumn
+} from './column'
+
+export {
+  newItem,
+  deleteItem,
+  renameItem
+} from './item'
 

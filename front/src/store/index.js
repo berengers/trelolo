@@ -11,6 +11,8 @@ const initialState = {
   currentDashboard: {},
   columns: [],
   items: [],
+  currentItem: {},
+  modalItem: false,
   loading: false
 }
 
