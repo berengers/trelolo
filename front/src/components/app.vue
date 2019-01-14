@@ -8,11 +8,11 @@
 <script>
 import Navbar from './navbar.vue'
 import Dashboard from './dashboard.vue'
+import Login from './login.vue'
 
 export default {
   name: 'App',
   components: {
-    Dashboard,
     Navbar
   }
 }

@@ -13,6 +13,21 @@ function login(req, res) {
   })
 }
 
+function logout(req, res) {
+  const token = req.headers['x-authenticate']
+  AuthToken.findOne({ where: {"token": token} })
+    .then(authToken => {
+
+      if (authToken) {
+        authToken.destroy()
+        res.json('')
+      } else {
+        res.sendStatus(404)
+      }
+      
+    })
+}
+
 function authenticate(req, res, next) {
   AuthToken.findOne({where: {token: req.headers['x-authenticate'] || ''}, include: [User]})
   .then(token => {
@@ -31,4 +46,5 @@ function authenticate(req, res, next) {
 module.exports = (app, prefix) => {
   app.use(authenticate)
   app.post(prefix + '/login', login)
+  app.delete(prefix + '/logout', logout)
 }

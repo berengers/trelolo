@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { router } from '../../index'
 
 class Db {
   constructor(){
@@ -7,6 +8,51 @@ class Db {
   _headers() {
     const token = localStorage.getItem('token')
     return { 'x-authenticate': token }
+  }
+  _status(error) {
+    const { status } = error.response
+    console.log('status ---->', status)
+    
+    if (status === 401 || status === 403) {
+      console.log('redirect to login?')
+      // localStorage.removeItem('token')
+      router.replace('/login')
+      return error
+    } else {
+      console.log('other error status to 401 or 403')
+    }
+  }
+
+  // ----- LOGIN / LOGOUT -----------
+
+  isAuthenticated() {
+    const token = localStorage.getItem('token')
+    if (token) {
+      return true
+    } else {
+      router.replace('/login')
+      return false
+    }
+  }
+  login(email, password) {
+    return axios.post(
+      this.url + '/login',
+      {
+        email: email,
+        password: password
+      },
+      {
+        headers: this._headers()
+      }
+    )
+  }
+  logout() {
+    return axios.delete(
+      this.url + '/logout',
+      {
+        headers: this._headers()
+      }
+    )
   }
 
   // ----- DASHBOARD -----------
@@ -18,6 +64,7 @@ class Db {
         headers: this._headers()
       }
     )
+    .catch(this._status)
   }
   fetchDashboard(id) {
     return axios.get(
@@ -26,6 +73,7 @@ class Db {
         headers: this._headers()
       }
     )
+    .catch(this._status)
   }
   newDashboard(name) {
     return axios.post(
